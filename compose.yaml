@@ -12,8 +12,8 @@ services:
       
       - ${BACKUP_LOCATION}:/mnt/borg-repository
       - ./config:/etc/borgmatic.d/
-      - ${VOLUME_BORG_CONFIG}:/root/.config/borg
-      - ${VOLUME_BORG_CACHE}:/root/.cache/borg
+      - ./borg_config:/root/.config/borg
+      - ./borg_cache:/root/.cache/borg
       - ./logs:/var/log/borgmatic
     environment:
       TZ: 'Europe/London'
