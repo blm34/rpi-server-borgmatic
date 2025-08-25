@@ -1,0 +1,22 @@
+services:
+  borgmatic:
+    image: ghcr.io/borgmatic-collective/borgmatic
+    container_name: borgmatic
+    volumes:
+      - /home:/mnt/source/home:ro
+      - /etc:/mnt/source/etc:ro
+      - /var:/mnt/source/var:ro
+      - /usr:/mnt/source/usr:ro
+      - /root:/mnt/source/root:ro
+      - /opt:/mnt/source/opt:ro
+      
+      - ${BACKUP_LOCATION}:/mnt/borg-repository
+      - ./config:/etc/borgmatic.d/
+      - ${VOLUME_BORG_CONFIG}:/root/.config/borg
+      - ${VOLUME_BORG_CACHE}:/root/.cache/borg
+      - ./logs:/var/log/borgmatic
+    environment:
+      TZ: 'Europe/London'
+      BORG_PASSPHRASE: ${BORG_PASSPHRASE}
+    restart: unless-stopped
+

@@ -1,0 +1,52 @@
+source_directories:
+  - /mnt/source/home
+
+exclude_patterns:
+  - /home/*/.cache
+
+exclude_if_present:
+  - .nobackup
+
+repositories:
+  - path: /mnt/borg-repository/borg-backup/home
+    label: local
+
+retries: 3
+retry_wait: 30
+
+one_file_system: true
+
+compression: lz4
+archive_name_format: 'backup-home-{now:%Y-%m-%d-%H%M%S}'
+
+keep_hourly: 24
+keep_daily: 31
+keep_weekly: 13
+keep_monthly: 12
+keep_yearly: 2
+
+checks:
+  - name: spot
+    frequency: always
+    count_tolerance_percentage: 10
+    data_sample_percentage: 5
+    data_tolerance_percentage: 0.5
+
+  - name: repository
+    frequency: 3 days
+
+  - name: archives
+    frequency: 1 week
+    only_run_on:
+      - weekend
+
+  - name: data
+    frequency: 2 weeks
+    only_run_on:
+      - weekday
+
+  - name: extract
+    frequency: 1 month
+    only_run_on:
+      - weekday
+
