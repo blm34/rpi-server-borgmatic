@@ -2,3 +2,4 @@
 logs/*
 borg_config/*
 borg_cache/*
+borg_state/*

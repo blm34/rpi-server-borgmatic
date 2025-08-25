@@ -12,6 +12,7 @@ services:
       
       - ${BACKUP_LOCATION}:/mnt/borg-repository
       - ./config:/etc/borgmatic.d/
+      - ./borg_state:/root/.local/state/borgmatic
       - ./borg_config:/root/.config/borg
       - ./borg_cache:/root/.cache/borg
       - ./logs:/var/log/borgmatic
