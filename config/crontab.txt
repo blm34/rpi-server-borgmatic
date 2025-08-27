@@ -1,8 +1,8 @@
 # Run hourly backup of home directory
-50 * * * * PATH=$PATH:/usr/local/bin /usr/local/bin/borgmatic --config /etc/borgmatic.d/home.yaml --stats -v 0 >> /var/log/borgmatic/home-$(date +\%Y\%m\%d-\%H\%M).log 2>&1
+50 * * * * PATH=$PATH:/usr/local/bin /usr/local/bin/borgmatic --config /etc/borgmatic.d/home.yaml --stats -v 1 >> /var/log/borgmatic/home-$(date +\%Y\%m\%d-\%H\%M).log 2>&1
 
 # Run daily backup of rest of data
-15 3 * * * PATH=$PATH:/usr/local/bin /usr/local/bin/borgmatic --config /etc/borgmatic.d/data.yaml --stats -v 0 >> /var/log/borgmatic/data-$(date +\%Y\%m\%d).log 2>&1
+15 3 * * * PATH=$PATH:/usr/local/bin /usr/local/bin/borgmatic --config /etc/borgmatic.d/data.yaml --stats -v 1 >> /var/log/borgmatic/data-$(date +\%Y\%m\%d).log 2>&1
 
 # Daily log pruning (keep 7 days)
 0 5 * * * bash -c 'find /var/log/borgmatic -name "*.log" -mtime +7 -type f -delete'
